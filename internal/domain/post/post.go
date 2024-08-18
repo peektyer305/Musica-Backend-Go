@@ -4,6 +4,7 @@ import (
 	"net/url"
 )
 
+
 type Post struct {
 	Id PostId
 	UserId UserId
