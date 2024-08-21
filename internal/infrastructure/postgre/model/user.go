@@ -2,6 +2,7 @@ package model
 
 import (
 	valueobject "Musica-Backend/internal/domain/value_object"
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -12,7 +13,9 @@ type User struct {
     UserIconUrl *string            `gorm:"type:varchar(255);"`
     Email       string             `gorm:"type:varchar(50);unique;not null"`
     Password    string             `gorm:"type:varchar(255);not null"`
-    Posts       []Post             `gorm:"foreignKey:UserId"`  // 1対多のリレーション
+    Posts       []Post             `gorm:"foreignKey:UserId"` // 1対多のリレーション
+	CreatedAt   time.Time			 `gorm:"type:timestamp;not null"`
+	UpdatedAt   time.Time			 `gorm:"type:timestamp;not null"`
 }
 
 func (user *User) SetPassword(password string) error {

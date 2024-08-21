@@ -4,6 +4,7 @@ import (
 	"Musica-Backend/internal/domain/post"
 	valueobject "Musica-Backend/internal/domain/value_object"
 	url "net/url"
+	"time"
 )
 
 type Post struct {
@@ -14,6 +15,8 @@ type Post struct {
     User    User               `gorm:"foreignKey:UserId"`
     MusicUrl string            `gorm:"type:varchar(255); not null"`
     ImageUrl *string            `gorm:"type:varchar(255);"`
+    CreatedAt time.Time           `gorm:"type:timestamp;not null"`
+    UpdatedAt time.Time           `gorm:"type:timestamp;not null"`
 }
 
 func (p *Post) ToDomain() post.Post {
@@ -48,5 +51,7 @@ func (p *Post) ToDomain() post.Post {
         ImageUrl: imageUrl,
         UserIconUrl: userIconUrl,
         UserName: p.User.Username,
+        CreatedAt: p.CreatedAt,
+        UpdatedAt: p.UpdatedAt,
     }
 }

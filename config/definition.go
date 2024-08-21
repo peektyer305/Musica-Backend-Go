@@ -2,6 +2,7 @@ package config
 
 import (
 	"bytes"
+	_ "embed"
 	"os"
 	"strings"
 
@@ -11,7 +12,7 @@ import (
 //go:embed config.yaml
 var configYaml []byte
 
-var Config *config
+var Conf *config
 
 type config struct {
 	App struct {
@@ -71,7 +72,7 @@ type config struct {
 			panic(err)
 		}
 
-		if err := viper.Unmarshal(&Config); err != nil {
+		if err := viper.Unmarshal(&Conf); err != nil {
 			panic(err)
 		}
 	}
