@@ -9,7 +9,8 @@ import (
 	"Musica-Backend/internal/infrastructure/postgre"
 	"Musica-Backend/internal/infrastructure/postgre/repository"
 
-	handler "github.com/Musica-Backend/internal/presentation/rest"
+	handler "Musica-Backend/internal/presentation/rest"
+
 	"github.com/google/wire"
 	"gorm.io/gorm"
 )
@@ -22,7 +23,7 @@ var providerSet = wire.NewSet(
 	
 	NewPostUseCase,
 
-	
+	NewPostHandler,
 )
 
 func NewPostRepository(db *gorm.DB) domain.IPostRepository {
@@ -37,3 +38,7 @@ func NewPostHandler(postUseCase *usecase.PostUseCase) *handler.PostHandler {
 	return &handler.PostHandler{PostUseCase: postUseCase}
 }
 
+func InitializePostHandler() *handler.PostHandler {
+	wire.Build(providerSet)
+	return &handler.PostHandler{}
+}

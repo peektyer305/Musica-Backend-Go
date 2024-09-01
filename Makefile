@@ -22,3 +22,6 @@ go-install:
 	go install github.com/go-delve/delve/cmd/dlv@latest
 	go install honnef.co/go/tools/cmd/staticcheck@latest
 	go install github.com/pressly/goose/v3/cmd/goose@latest
+
+wire-gen:
+	wire ./di/container.go
