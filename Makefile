@@ -16,6 +16,14 @@ dbstop:
 migrate-up:
 	goose -dir ./internal/infrastructure/postgre/migrations up
 
+migrate-status:
+	goose -dir ./internal/infrastructure/postgre/migrations status
+
+migrate-down:
+	goose -dir ./internal/infrastructure/postgre/migrations down
+
+migrate-reset:
+	goose -dir ./internal/infrastructure/postgre/migrations reset
 go-install:
 	go install github.com/google/wire/cmd/wire@latest
 	go install github.com/cespare/reflex@latest

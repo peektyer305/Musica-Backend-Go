@@ -8,15 +8,15 @@ import (
 )
 
 type Post struct {
-    Id      valueobject.PostId `gorm:"type:uuid;primaryKey"`
-    UserId  valueobject.UserId `gorm:"type:uuid;not null"`
-    Title   string             `gorm:"type:varchar(50);not null"`
-    Content *string             `gorm:"type:text;"`
-    User    User               `gorm:"foreignKey:UserId"`
-    MusicUrl string            `gorm:"type:varchar(255); not null"`
-    ImageUrl *string            `gorm:"type:varchar(255);"`
-    CreatedAt time.Time           `gorm:"type:timestamp;not null"`
-    UpdatedAt time.Time           `gorm:"type:timestamp;not null"`
+    Id        valueobject.PostId `gorm:"type:uuid;primaryKey;schema:app"`
+    UserId    valueobject.UserId `gorm:"type:uuid;not null"`
+    Title     string             `gorm:"type:varchar(50);not null"`
+    Content   *string            `gorm:"type:text;"`
+    User      User               `gorm:"foreignKey:UserId;references:Id;schema:app"` // Specify schema here if needed
+    MusicUrl  string             `gorm:"type:varchar(255);not null"`
+    ImageUrl  *string            `gorm:"type:varchar(255);"`
+    CreatedAt time.Time          `gorm:"type:timestamp;not null"`
+    UpdatedAt time.Time          `gorm:"type:timestamp;not null"`
 }
 
 func (p *Post) ToDomain() post.Post {
