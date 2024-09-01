@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"Musica-Backend/internal/domain"
+	domain "Musica-Backend/internal/application/domain/post"
 
 	"gorm.io/gorm"
 )
