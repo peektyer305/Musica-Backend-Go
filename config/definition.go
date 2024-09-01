@@ -55,7 +55,7 @@ type config struct {
 		} else if c.App.Port != "" {
 			return c.App.Port
 		} else {
-			return "8000"
+			return "8080"
 		}
 	}
 

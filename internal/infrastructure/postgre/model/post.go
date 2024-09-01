@@ -55,3 +55,30 @@ func (p *Post) ToDomain() post.Post {
         UpdatedAt: p.UpdatedAt,
     }
 }
+
+// func ToModel(post post.Post) Post {
+//     var imageUrl *string
+//     if post.ImageUrl != nil {
+//         imageUrl = new(string)
+//         *imageUrl = post.ImageUrl.String()
+//     }
+
+//     var UserIconUrl *string
+//     if post.UserIconUrl != nil {
+//         UserIconUrl = new(string)
+//         *UserIconUrl = post.UserIconUrl.String()
+//     }
+
+//     return Post{
+//         Id:      post.Id,
+//         UserId:  post.UserId,
+//         Title:   post.Title,
+//         Content: post.Content,
+//         MusicUrl: post.MusicUrl.String(),
+//         ImageUrl: imageUrl,
+//         UserIconUrl: UserIconUrl,
+//         UserName: post.UserName, 
+//         CreatedAt: post.CreatedAt,
+//         UpdatedAt: post.UpdatedAt,
+//     }
+// }
