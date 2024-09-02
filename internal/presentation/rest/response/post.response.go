@@ -7,30 +7,36 @@ import (
 	uuid "github.com/satori/go.uuid"
 
 	domain "Musica-Backend/internal/domain/post"
+
+	util "Musica-Backend/utils"
 )
 
 type PostResponse struct {
 	Id       uuid.UUID `json:"id"`
-	UserId   uuid.UUID `json:"user_id"`
+	UserId   uuid.UUID `json:"userId"`
 	Title    string `json:"title"`
 	Content  string `json:"content"`
-	MusicUrl  url.URL `json:"music_url"`
-	ImageUrl url.URL `json:"image_url"`
-	UserIconUrl url.URL `json:"user_icon_url"`
-	UserName string `json:"user_name"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	MusicUrl  map[string]string `json:"music"`
+	ImageUrl url.URL `json:"imageUrl"`
+	UserIconUrl url.URL `json:"userIconUrl"`
+	UserName string `json:"userName"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func DomainToResponse(post domain.Post) PostResponse {
 	 var id = post.Id.GetUUID()
 	 var userId = post.UserId.GetUUID()
+	 music,err := util.FetchMetadata(post.MusicUrl.String())
+	 if err != nil {
+		 panic(err)
+	 }
 	return PostResponse{
 		Id:       id,
 		UserId:   userId,
 		Title:    post.Title,
 		Content:  *post.Content,
-		MusicUrl: post.MusicUrl,
+		MusicUrl: music,
 		ImageUrl: *post.ImageUrl,
 		UserIconUrl: *post.UserIconUrl,
 		UserName: post.UserName,

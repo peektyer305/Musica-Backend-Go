@@ -2,6 +2,7 @@ package main
 
 import (
 	"Musica-Backend/internal/infrastructure/postgre"
+	"net/http"
 
 	"Musica-Backend/di"
 
@@ -21,7 +22,12 @@ func main() {
 	engine:= echo.New()
 	engine.Use(middleware.Logger())
 	engine.Use(middleware.Recover())
-	
+	// CORS設定
+	engine.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:5173"},
+		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+	}))
+
 	PostHander := di.InitializePostHandler()
 	findAll := func(c echo.Context) error {
 		posts, err := PostHander.FindAll(c)
