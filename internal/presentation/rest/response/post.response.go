@@ -17,8 +17,8 @@ type PostResponse struct {
 	Title    string `json:"title"`
 	Content  string `json:"content"`
 	MusicUrl  map[string]string `json:"music"`
-	ImageUrl url.URL `json:"imageUrl"`
-	UserIconUrl url.URL `json:"userIconUrl"`
+	ImageUrl *url.URL `json:"imageUrl"`
+	UserIconUrl *url.URL `json:"userIconUrl"`
 	UserName string `json:"userName"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
@@ -37,8 +37,8 @@ func DomainToResponse(post domain.Post) PostResponse {
 		Title:    post.Title,
 		Content:  *post.Content,
 		MusicUrl: music,
-		ImageUrl: *post.ImageUrl,
-		UserIconUrl: *post.UserIconUrl,
+		ImageUrl: post.ImageUrl,
+		UserIconUrl: post.UserIconUrl,
 		UserName: post.UserName,
 		CreatedAt: post.CreatedAt,
 		UpdatedAt: post.UpdatedAt,

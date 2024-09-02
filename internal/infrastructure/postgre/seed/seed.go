@@ -1,4 +1,4 @@
-package postgre
+package seed
 
 import (
 	valueobject "Musica-Backend/internal/domain/value_object"

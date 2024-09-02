@@ -1,12 +1,12 @@
 package main
 
 import (
-	"Musica-Backend/internal/infrastructure/postgre"
 	"net/http"
 
 	"Musica-Backend/di"
 
-	seed "Musica-Backend/internal/infrastructure/postgre"
+	"Musica-Backend/internal/infrastructure/postgre"
+	seed "Musica-Backend/internal/infrastructure/postgre/seed"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
