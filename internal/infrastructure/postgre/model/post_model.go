@@ -3,7 +3,6 @@ package model
 import (
 	"Musica-Backend/internal/domain/post"
 	valueobject "Musica-Backend/internal/domain/value_object"
-	url "net/url"
 	"time"
 )
 
@@ -20,25 +19,16 @@ type Post struct {
 }
 
 func (p *Post) ToDomain() post.Post {
-    var musicUrl *url.URL
-    musicUrl, err := url.Parse(p.MusicUrl)
-    if err != nil {
-        panic(err)
-    }
-    var imageUrl *url.URL
-    if p.ImageUrl != nil {
-        imageUrl, err = url.Parse(*p.ImageUrl)
-        if err != nil {
-            panic(err)
-        }
-
+    var imageUrl *string
+    if p.ImageUrl == nil {
+       imageUrl = nil
     }
     return post.Post{
         Id:      p.Id,
         UserId:  p.UserId,
         Title:   p.Title,
         Content: p.Content,
-        MusicUrl: *musicUrl,
+        MusicUrl: p.MusicUrl,
         ImageUrl: imageUrl,
         UserIconUrl: p.User.UserIconUrl,
         UserName: p.User.Username,

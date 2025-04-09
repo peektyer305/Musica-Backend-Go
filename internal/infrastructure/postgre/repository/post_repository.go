@@ -46,7 +46,7 @@ func (p *PostRepository) Create(ctx context.Context,post domain.Post) error {
 		UserId:   post.UserId,
 		Title:    post.Title,
 		Content:  post.Content,
-		MusicUrl: post.MusicUrl.String(),
+		MusicUrl: post.MusicUrl,
 	}
 	err := conn.Create(&postModel).Error
 	if err != nil {

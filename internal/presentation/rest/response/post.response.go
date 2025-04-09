@@ -1,7 +1,6 @@
 package response
 
 import (
-	"net/url"
 	"time"
 
 	uuid "github.com/satori/go.uuid"
@@ -17,8 +16,8 @@ type PostResponse struct {
 	Title    string `json:"title"`
 	Content  string `json:"content"`
 	MusicUrl  map[string]string `json:"music"`
-	ImageUrl *url.URL `json:"imageUrl"`
-	UserIconUrl *url.URL `json:"userIconUrl"`
+	ImageUrl *string `json:"imageUrl"`
+	UserIconUrl *string `json:"userIconUrl"`
 	UserName string `json:"userName"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
@@ -27,7 +26,7 @@ type PostResponse struct {
 func DomainToResponse(post domain.Post) PostResponse {
 	 var id = post.Id.GetUUID()
 	 var userId = post.UserId.GetUUID()
-	 music,err := util.FetchMetadata(post.MusicUrl.String())
+	 music,err := util.FetchMetadata(post.MusicUrl)
 	 if err != nil {
 		 panic(err)
 	 }

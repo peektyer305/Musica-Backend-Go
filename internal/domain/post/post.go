@@ -1,7 +1,6 @@
 package post
 
 import (
-	"net/url"
 	"time"
 
 	valueobject "Musica-Backend/internal/domain/value_object"
@@ -12,9 +11,9 @@ type Post struct {
 	UserId valueobject.UserId
 	Title string
 	Content *string
-	MusicUrl url.URL
-	ImageUrl *url.URL
-	UserIconUrl *url.URL
+	MusicUrl string
+	ImageUrl *string
+	UserIconUrl *string
 	UserName string
 	CreatedAt time.Time
 	UpdatedAt time.Time

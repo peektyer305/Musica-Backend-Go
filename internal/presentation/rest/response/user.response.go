@@ -3,7 +3,6 @@ package response
 import (
 	domain "Musica-Backend/internal/domain/user"
 	util "Musica-Backend/utils"
-	url "net/url"
 	"time"
 
 	uuid "github.com/satori/go.uuid"
@@ -12,7 +11,7 @@ import (
 type UserResponse struct {
 	Id       uuid.UUID `json:"id"`
 	Username string     `json:"username"`
-	UserIconUrl *url.URL `json:"userIconUrl"`
+	UserIconUrl *string `json:"userIconUrl"`
 	UserInfo string     `json:"userInfo"`
 	Posts    []UserPostResponse `json:"posts"`
 }
@@ -22,7 +21,7 @@ type UserPostResponse struct {
 	Title	string     `json:"title"`
 	Content  string     `json:"content"`
 	MusicUrl  map[string]string `json:"music"`
-	ImageUrl *url.URL `json:"imageUrl"`
+	ImageUrl *string `json:"imageUrl"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
@@ -31,7 +30,7 @@ func DomainToResponseUser(user domain.User) UserResponse {
 	UserIconUrl := user.UserIconUrl
 	posts := make([]UserPostResponse, len(user.Posts))
 	for i, post := range user.Posts {
-		music,err := util.FetchMetadata(post.MusicUrl.String())
+		music,err := util.FetchMetadata(post.MusicUrl)
 	 if err != nil {
 		 panic(err)
 	 }

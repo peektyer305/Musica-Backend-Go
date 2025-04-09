@@ -2,7 +2,6 @@ package user
 
 import (
 	valueobject "Musica-Backend/internal/domain/value_object"
-	"net/url"
 
 	domain "Musica-Backend/internal/domain/post"
 )
@@ -10,7 +9,7 @@ import (
 type User struct {
 	Id       valueobject.UserId
 	Username string
-	UserIconUrl *url.URL
+	UserIconUrl *string
 	UserInfo string
 	Posts    []domain.Post
 	
