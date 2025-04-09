@@ -35,6 +35,16 @@ func main() {
 		}
 		return c.JSON(200, posts)
 	}
+	UserHandler := di.InitializeUserHandler()
+	findUserById := func(c echo.Context) error {
+	
+		user, err := UserHandler.FindUserById(c)
+		if err != nil {
+			return c.JSON(500, err)
+		}
+		return c.JSON(200, user)
+	}
+	engine.GET("/users/:id", findUserById)
 	engine.GET("/posts",findAll)
 	engine.Start(":8080")
 	

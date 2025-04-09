@@ -24,4 +24,3 @@ func (p *PostHandler) FindAll(ctx echo.Context) ([]response.PostResponse, error)
 	return responses, nil
 }
 
-
