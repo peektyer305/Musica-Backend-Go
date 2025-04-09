@@ -33,8 +33,7 @@ func InsertInitialData(db *gorm.DB) {
 	user := model.User{
 		Id:          userId,
 		Username:    "Achro",
-		Email:       "pektyer305@gmail.com",
-		Password:    string(passwordHash),
+		UserInfo:    "test user info",
 		UserIconUrl: &userIconUrl,
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
