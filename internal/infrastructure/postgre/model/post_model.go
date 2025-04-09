@@ -33,15 +33,6 @@ func (p *Post) ToDomain() post.Post {
         }
 
     }
-
-    var userIconUrl *url.URL
-    if p.User.UserIconUrl != nil {
-        userIconUrl, err = url.Parse((*p.User.UserIconUrl))
-        if err != nil {
-            panic(err)
-        }
-    }
-
     return post.Post{
         Id:      p.Id,
         UserId:  p.UserId,
@@ -49,7 +40,7 @@ func (p *Post) ToDomain() post.Post {
         Content: p.Content,
         MusicUrl: *musicUrl,
         ImageUrl: imageUrl,
-        UserIconUrl: userIconUrl,
+        UserIconUrl: p.User.UserIconUrl,
         UserName: p.User.Username,
         CreatedAt: p.CreatedAt,
         UpdatedAt: p.UpdatedAt,
