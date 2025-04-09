@@ -6,7 +6,6 @@ import (
 	"Musica-Backend/di"
 
 	"Musica-Backend/internal/infrastructure/postgre"
-	seed "Musica-Backend/internal/infrastructure/postgre/seed"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -18,7 +17,7 @@ func main() {
 		d, _ := postgreDb.DB()
 		d.Close()
 	}()
-	seed.InsertInitialData(postgreDb)
+//eed.InsertInitialData(postgreDb)
 	engine:= echo.New()
 	engine.Use(middleware.Logger())
 	engine.Use(middleware.Recover())
