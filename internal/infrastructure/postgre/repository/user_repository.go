@@ -20,6 +20,12 @@ func (u *UserRepository) FindById(ctx context.Context, id valueobject.UserId) (d
 	if err != nil {
 		return domain.User{}, err
 	}
+	var posts []model.Post
+	err = conn.Where("user_id = ?", id).Find(&posts).Error
+	if err != nil {
+		return domain.User{}, err
+	}
+	user.Posts = posts
 	return user.ToDomain(), nil
 }
 
