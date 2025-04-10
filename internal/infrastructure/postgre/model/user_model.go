@@ -19,15 +19,15 @@ type User struct {
 }
 
 func (user *User) ToDomain() userdomain.User {
-    posts := make([]postdomain.Post, len(user.Posts))
-    for i, post := range user.Posts {
-        posts[i] = post.ToDomain()
+    var posts []postdomain.Post
+    for _, post := range user.Posts {
+        posts = append(posts, post.ToDomain())
     }
     return userdomain.User{
         Id:          user.Id,
         Username:    user.Username,
         UserIconUrl: user.UserIconUrl,
         UserInfo:    user.UserInfo,
-        Posts:       []postdomain.Post{},
+        Posts:       posts,
     }
 }
