@@ -31,6 +31,9 @@ type config struct {
 		Port string `mapstructure:"port"`
 		Name string `mapstructure:"name"`
 	} `mapstructure:"db"`
+	Redis struct {
+		Addr string `mapstructure:"addr"`
+	} `mapstructure:"redis"`
 	}
 
 	func (c config) IsLocal() bool {
