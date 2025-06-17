@@ -5,8 +5,7 @@ import (
 	"context"
 )
 
-type PostUseCase struct
-{
+type PostUseCase struct {
 	PostRepository domain.IPostRepository
 }
 
