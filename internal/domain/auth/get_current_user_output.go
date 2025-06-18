@@ -1,10 +1,10 @@
 package auth
 
 import (
-	domain "Mussica-Backend/internal/domain/auth"
+	"Musica-Backend/internal/domain/auth"
 )
 
 // Output DTO
 type GetCurrentUserOutput struct {
-	User *domain.User
+	User *auth.User
 }

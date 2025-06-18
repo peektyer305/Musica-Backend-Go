@@ -3,7 +3,7 @@ package auth
 import (
 	"errors"
 
-	domain "Musica-Backend/internal/domain/auth"
+	"Musica-Backend/internal/domain/auth"
 )
 
 type GetCurrentUserUseCase interface {
@@ -11,13 +11,13 @@ type GetCurrentUserUseCase interface {
 }
 
 type getCurrentUserInteractor struct {
-	jwtService     domain.JWTService
-	userRepository domain.IUserRepository
+	jwtService     auth.JWTService
+	userRepository auth.IUserRepository
 }
 
 func NewGetCurrentUserUsecase(
-	jwtSvc domain.JWTService,
-	userRepo domain.IUserRepository,
+	jwtSvc auth.JWTService,
+	userRepo auth.IUserRepository,
 ) GetCurrentUserUseCase {
 	return &getCurrentUserInteractor{
 		jwtService:     jwtSvc,
