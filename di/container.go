@@ -9,10 +9,9 @@ import (
 	"Musica-Backend/internal/infrastructure/postgre"
 	"Musica-Backend/internal/infrastructure/postgre/repository"
 
-	handler "Musica-Backend/internal/presentation/rest"
-
 	userusecase "Musica-Backend/internal/application/user"
 	userdomain "Musica-Backend/internal/domain/user"
+	handlers "Musica-Backend/internal/presentation/rest/handlers"
 
 	"github.com/google/wire"
 	"gorm.io/gorm"
@@ -23,7 +22,7 @@ var providerSet = wire.NewSet(
 	postgre.NewGormPostgres,
 
 	NewPostRepository,
-	
+
 	NewPostUseCase,
 
 	NewPostHandler,
@@ -33,7 +32,6 @@ var providerSet = wire.NewSet(
 	NewUserUseCase,
 
 	NewUserHandler,
-			
 )
 
 func NewPostRepository(db *gorm.DB) postdomain.IPostRepository {
@@ -44,13 +42,13 @@ func NewPostUseCase(postRepository postdomain.IPostRepository) *postusecase.Post
 	return &postusecase.PostUseCase{PostRepository: postRepository}
 }
 
-func NewPostHandler(postUseCase *postusecase.PostUseCase) *handler.PostHandler {
-	return &handler.PostHandler{PostUseCase: postUseCase}
+func NewPostHandler(postUseCase *postusecase.PostUseCase) *handlers.PostHandler {
+	return &handlers.PostHandler{PostUseCase: postUseCase}
 }
 
-func InitializePostHandler() *handler.PostHandler {
+func InitializePostHandler() *handlers.PostHandler {
 	wire.Build(providerSet)
-	return &handler.PostHandler{}
+	return &handlers.PostHandler{}
 }
 
 func NewUserRepository(db *gorm.DB) userdomain.IUserRepository {
@@ -59,10 +57,10 @@ func NewUserRepository(db *gorm.DB) userdomain.IUserRepository {
 func NewUserUseCase(userRepository userdomain.IUserRepository) *userusecase.UserUseCase {
 	return &userusecase.UserUseCase{UserRepository: userRepository}
 }
-func NewUserHandler(userUseCase *userusecase.UserUseCase) *handler.UserHandler {
-	return &handler.UserHandler{UserUseCase: userUseCase}
+func NewUserHandler(userUseCase *userusecase.UserUseCase) *handlers.UserHandler {
+	return &handlers.UserHandler{UserUseCase: userUseCase}
 }
-func InitializeUserHandler() *handler.UserHandler {
+func InitializeUserHandler() *handlers.UserHandler {
 	wire.Build(providerSet)
-	return &handler.UserHandler{}
+	return &handlers.UserHandler{}
 }
