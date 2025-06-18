@@ -67,6 +67,6 @@ func (s *Auth0JWTService) keyFunc(token *jwt.Token) (interface{}, error) {
 			s.cacheMutex.Unlock()
 			return pubKey, nil
 		}
-		return nil, fmt.Errorf("key with kid %s not found", kid)
 	}
+	return nil, fmt.Errorf("key with kid %s not found", kid)
 }

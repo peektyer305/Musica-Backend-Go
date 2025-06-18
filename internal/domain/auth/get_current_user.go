@@ -2,8 +2,6 @@ package auth
 
 import (
 	"errors"
-
-	"Musica-Backend/internal/domain/auth"
 )
 
 type GetCurrentUserUseCase interface {
@@ -11,13 +9,13 @@ type GetCurrentUserUseCase interface {
 }
 
 type getCurrentUserInteractor struct {
-	jwtService     auth.JWTService
-	userRepository auth.IUserRepository
+	jwtService     JWTService
+	userRepository IUserRepository
 }
 
 func NewGetCurrentUserUsecase(
-	jwtSvc auth.JWTService,
-	userRepo auth.IUserRepository,
+	jwtSvc JWTService,
+	userRepo IUserRepository,
 ) GetCurrentUserUseCase {
 	return &getCurrentUserInteractor{
 		jwtService:     jwtSvc,
@@ -36,7 +34,7 @@ func (i *getCurrentUserInteractor) Execute(in *GetCurrentUserInput) (*GetCurrent
 		return nil, errors.New("invalid token subject")
 	}
 	// オプション: ユーザリポジトリから詳細情報を取得
-	user, err := i.userRepository.FindByID(sub)
+	user, err := i.userRepository.FindByEmail(sub)
 	if err != nil {
 		return nil, err
 	}
