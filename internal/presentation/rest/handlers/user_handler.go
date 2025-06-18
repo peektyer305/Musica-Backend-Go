@@ -1,4 +1,4 @@
-package rest
+package handlers
 
 import (
 	usecase "Musica-Backend/internal/application/user"
@@ -12,7 +12,8 @@ import (
 type UserHandler struct {
 	UserUseCase *usecase.UserUseCase
 }
-func (u *UserHandler) FindUserById (ctx echo.Context) (response.UserResponse, error) {
+
+func (u *UserHandler) FindUserById(ctx echo.Context) (response.UserResponse, error) {
 	id := ctx.Param("id")
 	userId, err := valueobject.NewUserId(id)
 	if err != nil {

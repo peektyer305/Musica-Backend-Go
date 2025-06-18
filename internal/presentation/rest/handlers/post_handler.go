@@ -1,4 +1,4 @@
-package rest
+package handlers
 
 import (
 	usecase "Musica-Backend/internal/application/post"
@@ -20,7 +20,6 @@ func (p *PostHandler) FindAll(ctx echo.Context) ([]response.PostResponse, error)
 	for _, post := range posts {
 		responses = append(responses, response.DomainToResponse(post))
 	}
-	
+
 	return responses, nil
 }
-
