@@ -10,12 +10,12 @@ type GetCurrentUserUseCase interface {
 
 type getCurrentUserInteractor struct {
 	jwtService     JWTService
-	userRepository IUserRepository
+	userRepository IAuthRepository
 }
 
 func NewGetCurrentUserUsecase(
 	jwtSvc JWTService,
-	userRepo IUserRepository,
+	userRepo IAuthRepository,
 ) GetCurrentUserUseCase {
 	return &getCurrentUserInteractor{
 		jwtService:     jwtSvc,
@@ -28,13 +28,24 @@ func (i *getCurrentUserInteractor) Execute(in *GetCurrentUserInput) (*GetCurrent
 	if err != nil {
 		return nil, err
 	}
-	// Auth0 の 'sub' をユーザーIDとみなす
-	sub, ok := claims["sub"].(string)
+	// Auth0からemailを取得
+	if claims == nil {
+		return nil, errors.New("invalid token claims")
+	}
+	// claimsからemailを取得
+	if claims["email"] == nil {
+		return nil, errors.New("email not found in token claims")
+	}
+	email, ok := claims["email"].(string)
 	if !ok {
-		return nil, errors.New("invalid token subject")
+		return nil, errors.New("invalid token email")
+	}
+	// ユーザリポジトリからユーザを取得
+	if email == "" {
+		return nil, errors.New("email is empty")
 	}
 	// オプション: ユーザリポジトリから詳細情報を取得
-	user, err := i.userRepository.FindByEmail(sub)
+	user, err := i.userRepository.FindByEmail(email)
 	if err != nil {
 		return nil, err
 	}

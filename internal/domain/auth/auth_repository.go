@@ -1,5 +1,5 @@
 package auth
 
-type IUserRepository interface {
+type IAuthRepository interface {
 	FindByEmail(email string) (*User, error)
 }

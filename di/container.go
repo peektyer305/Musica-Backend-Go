@@ -32,6 +32,8 @@ var providerSet = wire.NewSet(
 	NewUserUseCase,
 
 	NewUserHandler,
+
+	NewAuth
 )
 
 func NewPostRepository(db *gorm.DB) postdomain.IPostRepository {
