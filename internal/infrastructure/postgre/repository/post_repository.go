@@ -5,6 +5,7 @@ import (
 	valueobject "Musica-Backend/internal/domain/value_object"
 	"Musica-Backend/internal/infrastructure/postgre/model"
 	"context"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -14,7 +15,7 @@ type PostRepository struct {
 }
 
 func (p *PostRepository) FindAll(ctx context.Context) ([]domain.Post, error) {
-	conn:= p.Db.WithContext(ctx)
+	conn := p.Db.WithContext(ctx)
 	var posts []model.Post
 	//とりあえず50件まで取得
 	err := conn.Limit(50).Find(&posts).Error
@@ -25,12 +26,12 @@ func (p *PostRepository) FindAll(ctx context.Context) ([]domain.Post, error) {
 	for _, post := range posts {
 		domainPosts = append(domainPosts, post.ToDomain())
 	}
-
+	fmt.Println("PostRepository.FindAll: ", domainPosts, " posts found")
 	return domainPosts, nil
 }
 
 func (p *PostRepository) FindById(ctx context.Context, id valueobject.PostId) (domain.Post, error) {
-	conn:= p.Db.WithContext(ctx)
+	conn := p.Db.WithContext(ctx)
 	var post model.Post
 	err := conn.Where("id = ?", id).First(&post).Error
 	if err != nil {
@@ -38,9 +39,10 @@ func (p *PostRepository) FindById(ctx context.Context, id valueobject.PostId) (d
 	}
 	return post.ToDomain(), nil
 }
-//この下二つは仮実装
-func (p *PostRepository) Create(ctx context.Context,post domain.Post) error {
-	conn:= p.Db.WithContext(ctx)
+
+// この下二つは仮実装
+func (p *PostRepository) Create(ctx context.Context, post domain.Post) error {
+	conn := p.Db.WithContext(ctx)
 	postModel := model.Post{
 		Id:       post.Id,
 		UserId:   post.UserId,
@@ -55,8 +57,8 @@ func (p *PostRepository) Create(ctx context.Context,post domain.Post) error {
 	return nil
 }
 
-func (p *PostRepository) DeleteById(ctx context.Context,id valueobject.PostId) error {
-	conn:= p.Db.WithContext(ctx)
+func (p *PostRepository) DeleteById(ctx context.Context, id valueobject.PostId) error {
+	conn := p.Db.WithContext(ctx)
 	err := conn.Where("id = ?", id).Delete(&model.Post{}).Error
 	if err != nil {
 		return err

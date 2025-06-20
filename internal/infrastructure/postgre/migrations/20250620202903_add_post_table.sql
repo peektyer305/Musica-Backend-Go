@@ -1,8 +1,8 @@
 -- +goose Up
 -- +goose StatementBegin
 SELECT 'up SQL query';
--- postsテーブルを作成
-CREATE TABLE IF NOT EXISTS "posts"
+-- 1) posts テーブルを作成
+    CREATE TABLE IF NOT EXISTS "posts"
 (
     id UUID PRIMARY KEY,
     user_id UUID NOT NULL,
@@ -15,8 +15,7 @@ CREATE TABLE IF NOT EXISTS "posts"
     FOREIGN KEY (user_id) REFERENCES "users"(id) ON DELETE CASCADE
 );
 -- +goose StatementEnd
-
 -- +goose Down
 -- +goose StatementBegin
-SELECT 'down SQL query';
+DROP TABLE IF EXISTS "posts";
 -- +goose StatementEnd

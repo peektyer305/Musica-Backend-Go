@@ -2,7 +2,7 @@ package handlers
 
 import (
 	usecase "Musica-Backend/internal/application/post"
-	"Musica-Backend/internal/presentation/rest/response"
+	response "Musica-Backend/internal/presentation/rest/response/timeline"
 
 	"github.com/labstack/echo/v4"
 )

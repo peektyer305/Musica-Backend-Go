@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type AuthUserRepository struct {
+type LoginUserRepository struct {
 	Db *gorm.DB
 }
 

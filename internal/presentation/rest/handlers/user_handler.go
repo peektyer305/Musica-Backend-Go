@@ -3,7 +3,7 @@ package handlers
 import (
 	usecase "Musica-Backend/internal/application/user"
 	valueobject "Musica-Backend/internal/domain/value_object"
-	"Musica-Backend/internal/presentation/rest/response"
+	response "Musica-Backend/internal/presentation/rest/response/timeline"
 	"net/http"
 
 	"github.com/labstack/echo/v4"

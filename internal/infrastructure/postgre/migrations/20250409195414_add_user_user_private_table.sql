@@ -1,18 +1,19 @@
 -- +goose Up
 -- +goose StatementBegin
-
--- users テーブル作成
-CREATE TABLE IF NOT EXISTS users (
-    id uuid PRIMARY KEY,
-    username varchar(50) UNIQUE NOT NULL,
-    user_info text,
-    user_icon_url varchar(255),
-    created_at timestamp NOT NULL DEFAULT now(),
-    updated_at timestamp NOT NULL DEFAULT now()
+SELECT 'up SQL query';
+-- 2) users テーブルを作成
+CREATE TABLE IF NOT EXISTS "users" (
+    id UUID PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    user_info TEXT,
+    user_icon_url VARCHAR(255),
+    user_client_id TEXT UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT now(),
+    updated_at TIMESTAMP NOT NULL DEFAULT now()
 );
 
 -- user_privates テーブル作成
-CREATE TABLE IF NOT EXISTS user_privates (
+CREATE TABLE IF NOT EXISTS "user_privates" (
     id uuid PRIMARY KEY,
     user_id uuid NOT NULL UNIQUE,
     mail_address varchar(255) NOT NULL,
@@ -26,16 +27,10 @@ CREATE TABLE IF NOT EXISTS user_privates (
 	  REFERENCES users(id)
       ON DELETE CASCADE
 );
-
 -- +goose StatementEnd
 
 -- +goose Down
 -- +goose StatementBegin
-
--- user_privates テーブル削除
-DROP TABLE IF EXISTS user_privates;
-
--- users テーブル削除
-DROP TABLE IF EXISTS users;
-
+DROP TABLE IF EXISTS "user_privates";
+DROP TABLE IF EXISTS "users";
 -- +goose StatementEnd
