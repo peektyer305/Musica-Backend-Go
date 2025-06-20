@@ -46,9 +46,11 @@ func main() {
 		}
 		return c.JSON(200, user)
 	}
+
 	redis.InitRedis()
 	engine.GET("/users/:id", findUserById)
 	engine.GET("/posts", findAll)
+
 	engine.Start(":8080")
 
 }
