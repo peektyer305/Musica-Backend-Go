@@ -7,10 +7,12 @@ import (
 )
 
 type User struct {
-	Id           valueobject.UserId
-	Username     string
-	UserIconUrl  *string
-	UserInfo     string
-	UserClientId string // ユーザークライアントID
-	Posts        []domain.Post
+	Id            valueobject.UserId
+	UserPrivateId valueobject.UserPrivateId // ユーザープライベートID
+	Email         string
+	Username      string
+	UserIconUrl   *string
+	UserInfo      string
+	UserClientId  string // ユーザークライアントID
+	Posts         []domain.Post
 }

@@ -5,12 +5,14 @@ import (
 	"time"
 )
 
-type User struct {
-	Id           valueobject.UserId
+// 　ユーザープライベートテーブルにユーザーテーブルを入れる
+type UserPrivate struct {
+	Id           valueobject.UserPrivateId
+	UserId       valueobject.UserId
+	Email        string
 	UserName     string
 	UserInfo     string
 	UserIconUrl  string
-	UserClientId string // ユーザークライアントID
-	Email        string
+	UserClientId string
 	CreatedAt    time.Time
 }
