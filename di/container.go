@@ -10,6 +10,7 @@ import (
 	"Musica-Backend/internal/infrastructure/postgre/repository"
 
 	userusecase "Musica-Backend/internal/application/user"
+	authdomain "Musica-Backend/internal/domain/auth"
 	userdomain "Musica-Backend/internal/domain/user"
 	handlers "Musica-Backend/internal/presentation/rest/handlers"
 
@@ -63,4 +64,8 @@ func NewUserHandler(userUseCase *userusecase.UserUseCase) *handlers.UserHandler 
 func InitializeUserHandler() *handlers.UserHandler {
 	wire.Build(providerSet)
 	return &handlers.UserHandler{}
+}
+
+func NewUserPrivateRepository(db *gorm.DB) authdomain.IUserPrivateRepository {
+	return &repository.UserPrivateRepository{Db: db}
 }

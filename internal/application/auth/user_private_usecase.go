@@ -6,9 +6,9 @@ import (
 )
 
 type UserPrivateUsecase struct {
-	AuthRepository domain.IAuthRepository
+	AuthRepository domain.IUserPrivateRepository
 }
 
-func (u *UserPrivateUsecase) FindMe(ctx context.Context, email string) (domain.User, error) {
+func (u *UserPrivateUsecase) FindMe(ctx context.Context, email string) (domain.UserPrivate, error) {
 	return u.AuthRepository.FindMe(ctx, email)
 }
