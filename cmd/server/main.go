@@ -9,6 +9,8 @@ import (
 
 	redis "Musica-Backend/internal/infrastructure/redis"
 
+	jwtMiddleware "Musica-Backend/internal/presentation/settings"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -51,6 +53,22 @@ func main() {
 	engine.GET("/users/:id", findUserById)
 	engine.GET("/posts", findAll)
 
+	// JWTミドルウェアの設定
+	jwtmw, err := jwtMiddleware.NewJWTMiddleware()
+	if err != nil {
+		engine.Logger.Fatal("Failed to create JWT middleware:", err)
+	}
+	engine.Use(jwtmw)
+	userPrivateHandler := di.InitializeUserPrivateHandler()
+	findMe := func(c echo.Context) error {
+		email := c.Get("user_email").(string)
+		user, err := userPrivateHandler.FindMe(c.Request().Context(), email)
+		if err != nil {
+			return c.JSON(500, err)
+		}
+		return c.JSON(200, user)
+	}
+	engine.GET("/me", findMe)
 	engine.Start(":8080")
 
 }

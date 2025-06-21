@@ -53,14 +53,17 @@ func NewJWTMiddleware() (echo.MiddlewareFunc, error) {
 				return echo.NewHTTPError(401, "Invalid token issuer")
 			}
 			//check audience
-			audiences, ok := claims["aud"].([]interface{})
-			if !ok || len(audiences) == 0 {
+			audience, ok := claims["aud"].([]interface{})
+			if !ok || len(audience) == 0 {
+				return echo.NewHTTPError(401, "Invalid token audience")
+			}
+			if audience[0] != os.Getenv("AUTH0_AUDIENCE") {
 				return echo.NewHTTPError(401, "Invalid token audience")
 			}
 			//Extract email
 			email, ok := claims["email"].(string)
 			if !ok || email == "" {
-				return echo.NewHTTPError(401, "Invalid token email claim")
+				return echo.NewHTTPError(401, "Failed to extract email from token")
 			}
 			// Set user email in context
 			c.Set("user_email", email)
