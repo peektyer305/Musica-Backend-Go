@@ -9,11 +9,11 @@ import (
 )
 
 type UserPrivateRepository struct {
-	db *gorm.DB
+	Db *gorm.DB
 }
 
 func (r *UserPrivateRepository) FindMe(ctx context.Context, email string) (auth.UserPrivate, error) {
-	conn := r.db.WithContext(ctx)
+	conn := r.Db.WithContext(ctx)
 	// ユーザープライベートテーブルからユーザーを取得
 	var userPrivateInfo authmodel.UserPrivate
 	err := conn.Where("email = ?", email).First(&userPrivateInfo).Error

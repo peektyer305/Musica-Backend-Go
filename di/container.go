@@ -9,9 +9,11 @@ import (
 	"Musica-Backend/internal/infrastructure/postgre"
 	"Musica-Backend/internal/infrastructure/postgre/repository"
 
+	authusecase "Musica-Backend/internal/application/auth"
 	userusecase "Musica-Backend/internal/application/user"
 	authdomain "Musica-Backend/internal/domain/auth"
 	userdomain "Musica-Backend/internal/domain/user"
+	authrepository "Musica-Backend/internal/infrastructure/postgre/repository/auth"
 	handlers "Musica-Backend/internal/presentation/rest/handlers"
 
 	"github.com/google/wire"
@@ -33,6 +35,12 @@ var providerSet = wire.NewSet(
 	NewUserUseCase,
 
 	NewUserHandler,
+
+	NewUserPrivateRepository,
+
+	NewUserPrivateUseCase,
+
+	NewUserPrivateHandler,
 )
 
 func NewPostRepository(db *gorm.DB) postdomain.IPostRepository {
@@ -67,5 +75,17 @@ func InitializeUserHandler() *handlers.UserHandler {
 }
 
 func NewUserPrivateRepository(db *gorm.DB) authdomain.IUserPrivateRepository {
-	return &repository.UserPrivateRepository{Db: db}
+	return &authrepository.UserPrivateRepository{Db: db}
+}
+
+func NewUserPrivateUseCase(userPrivateRepository authdomain.IUserPrivateRepository) *authusecase.UserPrivateUsecase {
+	return &authusecase.UserPrivateUsecase{UserPrivateRepository: userPrivateRepository}
+}
+
+func NewUserPrivateHandler(userPrivateUseCase *authusecase.UserPrivateUsecase) *handlers.UserPrivateHandler {
+	return &handlers.UserPrivateHandler{UserPrivateUsecase: userPrivateUseCase}
+}
+func InitializeUserPrivateHandler() *handlers.UserPrivateHandler {
+	wire.Build(providerSet)
+	return &handlers.UserPrivateHandler{}
 }
